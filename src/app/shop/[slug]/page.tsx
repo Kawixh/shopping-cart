@@ -22,11 +22,12 @@ async function getProductById({
   return product;
 }
 
-export default async function ProductPage({
-  params,
-}: {
-  params: Promise<{ slug: string }> | { slug: string };
-}) {
+type Props = {
+  params: { slug: string };
+  searchParams: { [key: string]: string | string[] | undefined };
+};
+
+export default async function ProductPage({ params, searchParams }: Props) {
   const { slug } = await params;
   const product = await getProductById({ productId: slug });
 
