@@ -24,7 +24,6 @@ async function main() {
         ingestEtsyProducts({
           keywords: ["handmade jewelry", "vintage clothing"],
           batchSize: 50,
-          totalProducts: 200,
         }),
     },
     // Add more ingestion tasks here as needed

@@ -1,3 +1,5 @@
+import { EtsyListingsResponse } from "./types";
+
 const ETSY_KEYSTRING = process.env.ETSY_KEYSTRING!;
 const ETSY_SHARED_SECRET = process.env.ETSY_SHARED_SECRET!;
 const BASE_URL = "https://openapi.etsy.com/v3";
