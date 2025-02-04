@@ -1,7 +1,8 @@
 import { Navigation } from "@/components/Navigation";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { ThemeProvider } from "next-themes";
+import { Geist, Geist_Mono, Quicksand } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -11,6 +12,11 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const quicksand = Quicksand({
+  variable: "--font-quicksand",
   subsets: ["latin"],
 });
 
@@ -26,12 +32,14 @@ export default function RootLayout({
 }) {
   return (
     <ClerkProvider>
-      <html lang="en">
+      <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} ${quicksand.variable} min-h-screen bg-background antialiased`}
         >
-          <Navigation />
-          <main>{children}</main>
+          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+            <Navigation />
+            <main className="container mx-auto">{children}</main>
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>

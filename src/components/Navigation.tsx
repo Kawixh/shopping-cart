@@ -1,44 +1,79 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import { UserButton, useAuth } from "@clerk/nextjs";
+import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
+import { Suspense } from "react";
 
-export function Navigation() {
+interface NavItem {
+  href: string;
+  label: string;
+}
+
+function NavigationContent() {
   const { isSignedIn } = useAuth();
   const pathname = usePathname();
+  const router = useRouter();
 
   if (!isSignedIn) return null;
 
-  const navItems = [
-    { href: "/dashboard", label: "Dashboard" },
-    { href: "/profile", label: "Profile" },
+  const navItems: NavItem[] = [
+    // { href: "/dashboard", label: "Dashboard" },
+    // { href: "/profile", label: "Profile" },
   ];
 
   return (
-    <nav className="bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16">
-          <div className="flex">
+    <nav className="bg-background/95 supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 w-full border-b backdrop-blur dark:border-neutral-800">
+      <div className="container flex h-14 max-w-screen-2xl items-center justify-between px-4">
+        <div className="flex items-center gap-4">
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => router.back()}
+            className="h-8 w-8"
+          >
+            <ChevronLeft className="h-4 w-4" />
+            <span className="sr-only">Go back</span>
+          </Button>
+
+          <div className="flex items-center space-x-1">
             {navItems.map((item) => (
               <Link
                 key={item.href}
                 href={item.href}
-                className={`inline-flex items-center px-4 text-sm font-medium ${
+                className={`hover:bg-accent hover:text-accent-foreground rounded-md px-4 py-2 text-sm font-medium transition-colors ${
                   pathname === item.href
-                    ? "text-blue-600 border-b-2 border-blue-600"
-                    : "text-gray-500 hover:text-gray-700"
+                    ? "bg-accent text-accent-foreground"
+                    : "text-muted-foreground hover:text-foreground"
                 }`}
               >
                 {item.label}
               </Link>
             ))}
           </div>
-          <div className="flex items-center">
-            <UserButton afterSignOutUrl="/sign-in" />
-          </div>
+        </div>
+
+        <div className="flex items-center gap-4">
+          <UserButton
+            afterSignOutUrl="/sign-in"
+            appearance={{
+              elements: {
+                rootBox: "hover:opacity-80 transition-opacity",
+              },
+            }}
+          />
         </div>
       </div>
     </nav>
+  );
+}
+
+export function Navigation() {
+  return (
+    <Suspense fallback={<div className="bg-muted h-14 w-full animate-pulse" />}>
+      <NavigationContent />
+    </Suspense>
   );
 }
