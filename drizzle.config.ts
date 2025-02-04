@@ -1,13 +1,15 @@
-import { config } from "dotenv";
-import { defineConfig } from "drizzle-kit";
+import { type Config } from "drizzle-kit";
 
-config({ path: ".env.local" });
+import { env } from "@/env";
 
-export default defineConfig({
-  schema: "./src/db/schema.ts",
-  out: "./migrations",
+export default {
+  schema: "./src/db/schema/*",
+  out: "./src/db/migrations",
   dialect: "postgresql",
+  verbose: true,
+  strict: true,
   dbCredentials: {
-    url: process.env.POSTGRES_URL!,
+    url: env.DATABASE_URL,
   },
-});
+  tablesFilter: ["shopping_cart_*"],
+} satisfies Config;
