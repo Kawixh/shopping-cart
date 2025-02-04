@@ -1,13 +1,35 @@
 import { db } from "@/db";
 import { products, productSources } from "@/db/schema/products";
 
+interface EtsyListingImage {
+  url_fullxfull: string;
+  url_170x135: string;
+}
+
+interface EtsyListing {
+  listing_id: number;
+  title: string;
+  description: string;
+  price: {
+    amount: number;
+    divisor: number;
+    currency_code: string;
+  };
+  quantity: number;
+  url: string;
+  views: number;
+  num_favorers: number;
+  processing_min: number;
+  processing_max: number;
+}
+
 async function insertOrUpdateProduct({
   item,
   images,
   keyword,
 }: {
-  item: any;
-  images: any[];
+  item: EtsyListing;
+  images: EtsyListingImage[];
   keyword: string;
 }) {
   const productId = `etsy_${item.listing_id}`;
@@ -17,17 +39,18 @@ async function insertOrUpdateProduct({
     .insert(productSources)
     .values({
       id: productId,
+      productId,
       source: "etsy",
       sourceId: item.listing_id.toString(),
       ingestedAt: new Date(),
       lastUpdatedAt: new Date(),
-      rawData: item,
+      rawData: item as unknown as Record<string, unknown>,
     })
     .onConflictDoUpdate({
       target: productSources.id,
       set: {
         lastUpdatedAt: new Date(),
-        rawData: item,
+        rawData: item as unknown as Record<string, unknown>,
       },
     });
 
@@ -69,11 +92,9 @@ async function insertOrUpdateProduct({
 
 export async function ingestEtsyProducts({
   batchSize = 50,
-  totalProducts = 200,
   keywords = ["custom keyword"],
 }: {
   batchSize?: number;
-  totalProducts?: number;
   keywords?: string[];
 }) {
   try {
