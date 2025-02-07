@@ -6,7 +6,7 @@ import Link from "next/link";
 import { LuStar } from "react-icons/lu";
 
 export const metadata = {
-  title: "Shop | Your App Name",
+  title: "Shop | Celestique",
   description: "Browse our products",
 };
 
@@ -50,6 +50,7 @@ export default async function ShopPage() {
                   />
                 </div>
               )}
+
               <div className="flex flex-col gap-1">
                 <div className="flex items-center justify-between gap-3">
                   <h2 className="truncate font-semibold">{product.name}</h2>
