@@ -5,9 +5,9 @@ import { Separator } from "@/components/ui/separator";
 import { db } from "@/db";
 import { Product, products } from "@/db/schema";
 import { eq } from "drizzle-orm";
-import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import { LuShoppingCart } from "react-icons/lu";
 
 async function getProductById({
   productId,
@@ -87,7 +87,7 @@ export default async function ProductPage({ params }: { params: tParams }) {
               </div>
 
               <Button className="w-full" size="lg" disabled={!product.inStock}>
-                <ShoppingCart className="mr-2 h-5 w-5" />
+                <LuShoppingCart className="mr-2 h-5 w-5" />
                 Add to Cart
               </Button>
             </div>

@@ -1,9 +1,9 @@
 import { db } from "@/db";
 import { products } from "@/db/schema/products";
 import { getPlaceholderImage } from "@/utils/images";
-import { Star } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { LuStar } from "react-icons/lu";
 
 export const metadata = {
   title: "Shop | Your App Name",
@@ -54,7 +54,7 @@ export default async function ShopPage() {
                 <div className="flex items-center justify-between gap-3">
                   <h2 className="truncate font-semibold">{product.name}</h2>
                   <div className="flex items-center gap-1">
-                    <Star className="h-4 w-4 text-black" />
+                    <LuStar className="h-4 w-4 text-black" />
                     <span className="text-sm font-semibold">
                       {product.rating}
                     </span>

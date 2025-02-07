@@ -2,10 +2,11 @@
 
 import { Button } from "@/components/ui/button";
 import { UserButton, useAuth } from "@clerk/nextjs";
-import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Suspense } from "react";
+import { LuChevronLeft } from "react-icons/lu";
+import { PiGithubLogo } from "react-icons/pi";
 import { ModeToggle } from "./ui/mode-toggle";
 
 interface NavItem {
@@ -35,7 +36,7 @@ function NavigationContent() {
             onClick={() => router.back()}
             className="h-8 w-8"
           >
-            <ChevronLeft className="h-4 w-4" />
+            <LuChevronLeft className="h-4 w-4" />
             <span className="sr-only">Go back</span>
           </Button>
 
@@ -57,6 +58,14 @@ function NavigationContent() {
         </div>
 
         <div className="flex items-center gap-4">
+          <Link
+            href="https://github.com/Kawixh/shopping-cart"
+            target="_blank"
+            className="rounded-full bg-gray-100 p-3 dark:bg-gray-800"
+          >
+            <PiGithubLogo className="darl:text-white h-5 w-5" />
+          </Link>
+
           <ModeToggle />
 
           <UserButton
