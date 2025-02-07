@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-This project is a fully functional e-commerce shopping cart application built with Next.js. It allows users to browse products, view product details, and add products to a cart (Note: Cart functionality is a future implementation). The application uses a PostgreSQL database with Drizzle ORM for data management. It also integrates with Clerk for authentication, allowing users to sign up and sign in. The project fetches product data from both a fake store API and the Etsy API, showcasing the ability to ingest data from multiple sources. The UI is built with Tailwind CSS and Shadcn/ui components, providing a modern and responsive user experience.
+This project is a fully functional e-commerce shopping cart application built with Next.js 15 and React 19. It leverages the React Compiler for optimized performance. It allows users to browse products, view product details, and add products to a cart (Note: Cart functionality is a future implementation). The application uses a PostgreSQL database with Drizzle ORM for data management. It also integrates with Clerk for authentication, allowing users to sign up and sign in. The project fetches product data from both a fake store API and the Etsy API, showcasing the ability to ingest data from multiple sources. The UI is built with Tailwind CSS and Shadcn UI components, providing a modern and responsive user experience.
 
 ## Getting Started
 
@@ -11,7 +11,6 @@ Follow these steps to get the project up and running on your local machine.
 ### Prerequisites
 
 - Node.js (version 20 or higher - see `.nvmrc`)
-- Docker (if you want to run the database in a container)
 - A Clerk account and API keys
 - An Etsy account and API keys (if you want to ingest Etsy products)
 
@@ -20,7 +19,7 @@ Follow these steps to get the project up and running on your local machine.
 1.  Clone the repository:
 
     ```bash
-    git clone <repository_url>
+    git clone https://github.com/Kawixh/shopping-cart.git
     cd shopping-cart
     ```
 
@@ -51,47 +50,10 @@ Follow these steps to get the project up and running on your local machine.
 
 4.  Set up the database:
 
-    - **Option 1: Using Docker (Recommended for local development)**
+    Consider using Vercel Postgres for a simpler setup:
 
-      - Run the provided script to start a PostgreSQL database in a Docker container:
-
-        ```bash
-        ./start-database.sh
-        ```
-
-        This script (startLine: 1, endLine: 61) will create a Docker container named `t3_example-postgres` and expose it on port specified in your `DATABASE_URL`. It also handles generating a random password if you are using the default one.
-
-      - Alternatively, you can use `docker compose` with a `compose.yaml` file:
-
-        ```yaml
-        version: "3.9"
-        services:
-          postgres:
-            image: postgres:latest
-            container_name: t3_example-postgres
-            ports:
-              - "5432:5432"
-            environment:
-              POSTGRES_USER: postgres
-              POSTGRES_PASSWORD: your_db_password
-              POSTGRES_DB: t3_example
-            volumes:
-              - postgres_data:/var/lib/postgresql/data
-
-        volumes:
-          postgres_data:
-        ```
-
-        Then run:
-
-        ```bash
-        docker compose up -d
-        ```
-
-    - **Option 2: Using a local PostgreSQL installation**
-
-      - Make sure you have PostgreSQL installed and running on your machine.
-      - Update the `DATABASE_URL` environment variable with the connection string to your local PostgreSQL database.
+    - Create a Vercel Postgres database in your Vercel project.
+    - Update the `DATABASE_URL` environment variable with the connection string provided by Vercel.
 
 5.  Run database migrations:
 
@@ -150,7 +112,7 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - **React:** A JavaScript library for building user interfaces.
 - **TypeScript:** A superset of JavaScript that adds static typing.
 - **Tailwind CSS:** A utility-first CSS framework for rapidly styling HTML elements.
-- **Shadcn/ui:** A collection of accessible and reusable UI components built with Radix UI and Tailwind CSS. See `components.json` (startLine: 1, endLine: 21) for configuration.
+- **Shadcn UI:** A collection of accessible and reusable UI components built with Radix UI and Tailwind CSS. See `components.json` (startLine: 1, endLine: 21) for configuration.
 - **Clerk:** Authentication and user management solution.
 - **Drizzle ORM:** A lightweight TypeScript ORM for interacting with the database. See `drizzle.config.ts` (startLine: 1, endLine: 15) for configuration.
 - **PostgreSQL:** An open-source relational database management system.
@@ -163,6 +125,31 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/bui
 - **sharp:** For image processing
 
 ## Project Scope
+
+### Features
+
+- [x] **Product Browsing:** Users can view a list of products with images, names, prices, and ratings.
+- [x] **Product Details:** Users can view detailed information about a specific product, including description, category, and availability.
+- [x] **User Authentication:** Users can sign up and sign in using Clerk.
+- [x] **Data Ingestion:** Product data is automatically ingested from the Fake Store API and the Etsy API.
+- [x] **Database Integration:** The application uses a PostgreSQL database to store product data.
+- [x] **Theme Support:** The application supports light, dark, and system themes.
+- [x] **Image Optimization:** Next.js Image component is used for image optimization, including placeholder generation.
+- [x] **Vendor Registration:** Vendor registration form is implemented, but the actual vendor dashboard and functionalities are not yet implemented.
+- [x] **Coach Registration:** Coach registration form is implemented, but the actual coach dashboard and functionalities are not yet implemented.
+- [ ] **Shopping Cart Functionality:** Implement the ability for users to add products to a shopping cart, view the cart, update quantities, and remove products.
+- [ ] **Checkout Process:** Implement a secure checkout process with payment gateway integration (e.g., Stripe, PayPal).
+- [ ] **Order Management:** Implement order management functionality for users to view their order history and track order status.
+- [ ] **User Profiles:** Allow users to manage their profiles, including updating their personal information and addresses.
+- [ ] **Search Functionality:** Implement a search feature to allow users to easily find products based on keywords.
+- [ ] **Filtering and Sorting:** Add filtering and sorting options to the product listing page.
+- [ ] **Product Reviews:** Implement a system for users to leave reviews and ratings for products.
+- [ ] **Admin Dashboard:** Create an admin dashboard for managing products, users, and orders.
+- [ ] **Vendor Dashboard:** Implement a dashboard for vendors to manage their products, orders, and profile.
+- [ ] **Coach Dashboard:** Implement a dashboard for coaches to manage their profile and related functionalities.
+- [ ] **Etsy Integration Improvements:** Improve the Etsy integration to handle pagination and more complex search queries using `src/lib/etsy/client.ts` (startLine: 41, endLine: 87).
+- [ ] **Testing:** Implement unit and integration tests to ensure the quality and stability of the application.
+- [ ] **SEO Optimization:** Implement SEO best practices to improve the visibility of the application in search engine results.
 
 ### Implemented Features
 
