@@ -1,7 +1,7 @@
 import { Navigation } from "@/components/Navigation";
+import { ThemeProvider } from "@/components/theme-provider";
 import { ClerkProvider } from "@clerk/nextjs";
 import type { Metadata } from "next";
-import { ThemeProvider } from "next-themes";
 import { Geist, Geist_Mono, Quicksand } from "next/font/google";
 import "./globals.css";
 
@@ -34,9 +34,14 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <body
-          className={`${geistSans.variable} ${geistMono.variable} ${quicksand.variable} min-h-screen bg-background antialiased`}
+          className={`${geistSans.variable} ${geistMono.variable} ${quicksand.variable} bg-background min-h-screen antialiased`}
         >
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="system"
+            enableSystem
+            disableTransitionOnChange
+          >
             <Navigation />
             <main className="container mx-auto">{children}</main>
           </ThemeProvider>
