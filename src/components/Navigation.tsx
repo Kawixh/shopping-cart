@@ -6,6 +6,7 @@ import { ChevronLeft } from "lucide-react";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { Suspense } from "react";
+import { ModeToggle } from "./ui/mode-toggle";
 
 interface NavItem {
   href: string;
@@ -56,8 +57,9 @@ function NavigationContent() {
         </div>
 
         <div className="flex items-center gap-4">
+          <ModeToggle />
+
           <UserButton
-            afterSignOutUrl="/sign-in"
             appearance={{
               elements: {
                 rootBox: "hover:opacity-80 transition-opacity",
