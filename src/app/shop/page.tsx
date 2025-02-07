@@ -24,7 +24,7 @@ export default async function ShopPage() {
   );
 
   return (
-    <div className="font-quicksand min-h-screen bg-gray-100/20 p-8 dark:bg-gray-700">
+    <div className="font-quicksand min-h-screen bg-gray-100/20 p-8 dark:bg-gray-900">
       <h1 className="mb-8 text-3xl font-bold">Our Products</h1>
       <div className="grid grid-cols-1 gap-8 gap-y-12 md:grid-cols-2 lg:grid-cols-4">
         {productsWithPlaceholders.map((product) => (
@@ -35,7 +35,7 @@ export default async function ShopPage() {
           >
             <div className="flex flex-col gap-3 rounded-lg">
               {product.mainImage && (
-                <div className="aspect-w-1 aspect-h-1 relative h-40 overflow-hidden rounded-xl">
+                <div className="aspect-w-1 aspect-h-1 relative h-40 overflow-hidden rounded-xl dark:bg-gray-200">
                   <Image
                     src={product.mainImage}
                     alt={product.name}
@@ -44,7 +44,7 @@ export default async function ShopPage() {
                     loading="lazy"
                     placeholder="blur"
                     blurDataURL={product.placeholder}
-                    className="object-contain mix-blend-darken transition-opacity group-hover:opacity-90"
+                    className="object-contain mix-blend-darken transition-opacity group-hover:opacity-90 dark:mix-blend-multiply"
                     fill
                     unoptimized={!product.mainImage.startsWith("/")}
                   />
